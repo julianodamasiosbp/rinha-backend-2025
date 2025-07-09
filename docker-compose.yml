@@ -1,0 +1,17 @@
+services:
+
+  mongo:
+    image: mongo
+    container_name: rinhadb
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: rinhadb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - rinha_data:/data/db
+
+volumes:
+  rinha_data:

@@ -1,6 +1,7 @@
 package br.com.acme.rinha_backend.domain.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -17,9 +18,9 @@ public class Payment {
 
     private BigDecimal amount;
 
-    private OffsetDateTime createdAt = OffsetDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    private OffsetDateTime updatedAt = OffsetDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public Payment() {
 
@@ -46,19 +47,19 @@ public class Payment {
         this.amount = amount;
     }
 
-    public OffsetDateTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(OffsetDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public OffsetDateTime getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(OffsetDateTime updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

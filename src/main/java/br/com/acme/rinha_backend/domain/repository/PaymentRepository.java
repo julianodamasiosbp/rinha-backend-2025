@@ -1,5 +1,7 @@
 package br.com.acme.rinha_backend.domain.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -12,6 +14,6 @@ import br.com.acme.rinha_backend.domain.model.Payment;
 @Repository
 public interface PaymentRepository extends MongoRepository<Payment, UUID> {
 
-    List<Payment> findByEventDateBetween(OffsetDateTime from, OffsetDateTime to);
+    List<Payment> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to);
 
 }

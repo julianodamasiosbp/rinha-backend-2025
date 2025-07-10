@@ -1,5 +1,24 @@
 services:
 
+  rinha-backend:
+    image: julianod/rinha-backend-2025:latest
+    hostname: rinha-backend
+    networks:
+      - backend
+      - payment-processor
+    environment:
+        SPRING_DATA_MONGODB_HOST: mongodb
+        SPRING_DATA_MONGODB_PORT: 27017
+        SPRING_DATA_MONGODB_USERNAME: root
+        SPRING_DATA_MONGODB_PASSWORD: root
+        SPRING_DATA_MONGODB_DATABASE: rinhadb
+        PAYMENT_PROCESSOR_URL_DEFAULT: http://payment-processor-default:8080
+        PAYMENT_PROCESSOR_URL_FALLBACK: http://payment-processor-fallback:8080
+    ports:
+      - 9999:9999
+    depends_on:
+      - mongodb
+
   payment-processor-1:
     image: zanfranceschi/payment-processor
     networks:
@@ -16,9 +35,9 @@ services:
     ports:
       - 8002:8080
 
-  mongo:
+  mongodb:
     image: mongo
-    container_name: rinhadb
+    container_name: mongodb
     ports:
       - "27017:27017"
     restart: always
@@ -33,6 +52,7 @@ volumes:
   rinha_data:
 
 networks:
-  payment-processor:
-    name: payment-processor
+  backend:
     driver: bridge
+  payment-processor:
+    external: true

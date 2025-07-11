@@ -17,7 +17,8 @@ services:
     ports:
       - 9999:9999
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
 
   payment-processor-1:
     image: zanfranceschi/payment-processor
@@ -47,6 +48,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - rinha_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongodb://localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   rinha_data:
@@ -56,3 +62,4 @@ networks:
     driver: bridge
   payment-processor:
     external: true
+    driver: bridge

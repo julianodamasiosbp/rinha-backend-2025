@@ -1,12 +1,14 @@
 services:
 
   rinha-backend:
-    image: julianod/rinha-backend-2025:latest
+    #image: julianod/rinha-backend-2025:latest
+    build: .
     hostname: rinha-backend
     networks:
       - backend
       - payment-processor
     environment:
+        SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/rinhadb?authSource=admin
         SPRING_DATA_MONGODB_HOST: mongodb
         SPRING_DATA_MONGODB_PORT: 27017
         SPRING_DATA_MONGODB_USERNAME: root
@@ -42,6 +44,8 @@ services:
     ports:
       - "27017:27017"
     restart: always
+    networks: 
+      - backend 
     environment:
       MONGO_INITDB_DATABASE: rinhadb
       MONGO_INITDB_ROOT_USERNAME: root
@@ -49,7 +53,7 @@ services:
     volumes:
       - rinha_data:/data/db
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh mongodb://localhost:27017/test --quiet
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
       interval: 10s
       timeout: 5s
       retries: 5
@@ -62,4 +66,3 @@ networks:
     driver: bridge
   payment-processor:
     external: true
-    driver: bridge

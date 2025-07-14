@@ -22,22 +22,6 @@ services:
       mongodb:
         condition: service_healthy
 
-  payment-processor-1:
-    image: zanfranceschi/payment-processor
-    networks:
-      - payment-processor
-    hostname: payment-processor-default
-    ports:
-      - 8001:8080
-  
-  payment-processor-2:
-    image: zanfranceschi/payment-processor
-    networks:
-      - payment-processor
-    hostname: payment-processor-fallback
-    ports:
-      - 8002:8080
-
   mongodb:
     image: mongo
     container_name: mongodb

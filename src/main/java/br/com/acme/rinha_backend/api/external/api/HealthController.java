@@ -24,6 +24,11 @@ public class HealthController {
 
     @GetMapping("/default-payment-processor")
     public Mono<ServiceHealth> getDefaultPaymentProcessorHealth() {
+        for (int i = 0; i < 10; i++) {
+            Mono<ServiceHealth> checkServiceHealth = defaultPaymentClient.checkServiceHealth();
+            System.out.println("HealthController: Checking health of default payment processor, attempt " + (i + 1));
+            System.out.println(checkServiceHealth);
+        }
         return defaultPaymentClient.checkServiceHealth();
     }
 
